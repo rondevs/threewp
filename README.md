@@ -37,7 +37,7 @@ After activating the plugin, Three.js will be available for use in your theme or
     - Ensure you have a container element in your HTML where the Three.js scene will be rendered. Add an elementor container with id `threewp-container` or add this to your WordPress theme’s template file or a page:
 
         ```html
-        <div id="threewp-container" style="width: 100%; height: 500px;"></div>
+        <div id="threewp-container" style="width: 100%; height: 100vh;"></div>
         ```
 
 2. **Add Custom JavaScript**:
@@ -47,47 +47,78 @@ After activating the plugin, Three.js will be available for use in your theme or
         ```javascript
         document.addEventListener('DOMContentLoaded', function () {
         	if (typeof THREE !== 'undefined') {
-        		// Create a scene
+        		// Example code to initialize Three.js
         		const scene = new THREE.Scene();
-
-        		// Create a camera
-        		const camera = new THREE.PerspectiveCamera(
-        			75,
-        			window.innerWidth / window.innerHeight,
-        			0.1,
-        			1000,
-        		);
-
-        		// Create a renderer
-        		const renderer = new THREE.WebGLRenderer();
-        		renderer.setSize(window.innerWidth, window.innerHeight);
+        		const w = window.innerWidth;
+        		const h = window.innerHeight;
+        		const renderer = new THREE.WebGLRenderer({ antialias: true });
+        		renderer.setSize(w, h);
         		document
         			.getElementById('threewp-container')
         			.appendChild(renderer.domElement);
 
-        		// Create a cube
-        		const geometry = new THREE.BoxGeometry();
-        		const material = new THREE.MeshBasicMaterial({
-        			color: 0x00ff00,
+        		const fov = 75;
+        		const aspect = w / h;
+        		const near = 0.1;
+        		const far = 10;
+
+        		const camera = new THREE.PerspectiveCamera(
+        			fov,
+        			aspect,
+        			near,
+        			far,
+        		);
+        		camera.position.z = 2;
+
+        		const controls = new THREE_ADDONS.OrbitControls(
+        			camera,
+        			renderer.domElement,
+        		);
+        		controls.enableDamping = true;
+        		controls.dampingFactor = 0.03;
+
+        		const geo = new THREE.IcosahedronGeometry(1.0, 5);
+        		const mat = new THREE.MeshStandardMaterial({
+        			color: 0xffffff,
+        			flatShading: true,
         		});
-        		const cube = new THREE.Mesh(geometry, material);
-        		scene.add(cube);
+        		const hemiLight = new THREE.HemisphereLight(0x0099ff, 0xaa5500);
+        		const direcLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        		scene.add(hemiLight);
 
-        		camera.position.z = 5;
+        		const mesh = new THREE.Mesh(geo, mat);
+        		scene.add(mesh);
 
-        		// Animation loop
-        		function animate() {
+        		const wireMat = new THREE.MeshBasicMaterial({
+        			color: 0xffffff,
+        			wireframe: true,
+        		});
+
+        		const wireMesh = new THREE.Mesh(geo, wireMat);
+        		wireMesh.scale.setScalar(1.001);
+        		scene.add(wireMesh);
+
+        		function animate(t = 0) {
         			requestAnimationFrame(animate);
-        			cube.rotation.x += 0.01;
-        			cube.rotation.y += 0.01;
+        			mesh.rotation.y = t * 0.0001;
         			renderer.render(scene, camera);
         		}
+
         		animate();
+
+        		window.addEventListener('resize', () => {
+        			// Update camera aspect ratio and renderer size
+        			camera.aspect = w / h;
+        			camera.updateProjectionMatrix();
+        			renderer.setSize(w, h);
+        		});
         	} else {
         		console.error('Three.js could not be loaded.');
         	}
         });
         ```
+
+        NOTE: Use `THREE_ADDONS` to access the addons.
 
 ### Tips
 
