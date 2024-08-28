@@ -1,6 +1,6 @@
 # ThreeWP
 
-**ThreeWP** is a lightweight WordPress plugin designed to integrate the Three.js library into your WordPress site. This plugin allows you to use Three.js for creating custom 3D models, animations, and interactive graphics directly in your WordPress theme or custom JavaScript code.
+**ThreeWP** is a WordPress plugin designed to integrate the Three.js library with Three.js Addons into your WordPress site. This plugin allows you to use Three.js for creating custom 3D models, animations, and interactive graphics directly in your WordPress theme or custom JavaScript code.
 
 ## Features
 
@@ -32,15 +32,7 @@ After activating the plugin, Three.js will be available for use in your theme or
 
 ### Example Usage
 
-1. **Add HTML Container**:
-
-    - Ensure you have a container element in your HTML where the Three.js scene will be rendered. Add an elementor container with id `threewp-container` or add this to your WordPress theme’s template file or a page:
-
-        ```html
-        <div id="threewp-container" style="width: 100%; height: 100vh;"></div>
-        ```
-
-2. **Add Custom JavaScript**:
+**Add Custom JavaScript**:
 
     - Add your Three.js initialization and rendering code to your theme’s JavaScript file or use a custom script. Here’s a basic example:
 
@@ -49,16 +41,14 @@ After activating the plugin, Three.js will be available for use in your theme or
         	if (typeof THREE !== 'undefined') {
         		// Example code to initialize Three.js
         		const scene = new THREE.Scene();
-        		const w = window.innerWidth;
-        		const h = window.innerHeight;
         		const renderer = new THREE.WebGLRenderer({ antialias: true });
-        		renderer.setSize(w, h);
+        		renderer.setSize(window.innerWidth, window.innerHeight);
         		document
-        			.getElementById('threewp-container')
+        			.body
         			.appendChild(renderer.domElement);
 
         		const fov = 75;
-        		const aspect = w / h;
+        		const aspect = window.innerWidth/ window.innerHeight;
         		const near = 0.1;
         		const far = 10;
 
@@ -108,9 +98,9 @@ After activating the plugin, Three.js will be available for use in your theme or
 
         		window.addEventListener('resize', () => {
         			// Update camera aspect ratio and renderer size
-        			camera.aspect = w / h;
+        			camera.aspect = window.innerWidth/ window.innerHeight;
         			camera.updateProjectionMatrix();
-        			renderer.setSize(w, h);
+        			renderer.setSize(window.innerWidth, window.innerHeight);
         		});
         	} else {
         		console.error('Three.js could not be loaded.');
@@ -127,7 +117,7 @@ After activating the plugin, Three.js will be available for use in your theme or
 
 ## Changelog
 
--   **v1.0.0** - Initial release. Enqueues the Three.js library and provides a basic setup for using Three.js with WordPress.
+-   **v1.1.0** - Upgraded release. Now enqueues the Three.js library (r128) along with essential addons like OrbitControls, GLTFLoader, EffectComposer, and BloomPass. This version enhances the plugin's capabilities, providing a more comprehensive setup for integrating Three.js with WordPress.
 
 ## Contributing
 
