@@ -12,7 +12,7 @@
 
 1. **Download the Plugin**:
 
-    - You can download the plugin zip file from [GitHub Releases](https://github.com/your-username/your-plugin-name/releases).
+    - You can download the plugin zip file from [GitHub Releases](https://github.com/rondevs/threewp/releases).
 
 2. **Upload the Plugin**:
 
@@ -34,7 +34,7 @@ After activating the plugin, Three.js will be available for use in your theme or
 
 1. **Add HTML Container**:
 
-    - Ensure you have a container element in your HTML where the Three.js scene will be rendered. Add this to your WordPress theme’s template file or a page:
+    - Ensure you have a container element in your HTML where the Three.js scene will be rendered. Add an elementor container with id `threewp-container` or add this to your WordPress theme’s template file or a page:
 
         ```html
         <div id="threewp-container" style="width: 100%; height: 500px;"></div>
