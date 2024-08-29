@@ -34,81 +34,81 @@ After activating the plugin, Three.js will be available for use in your theme or
 
 **Add Custom JavaScript**:
 
-    - Add your Three.js initialization and rendering code to your theme’s JavaScript file or use a custom script. Here’s a basic example:
+-   Add your Three.js initialization and rendering code to your theme’s JavaScript file or use a custom script. Here’s a basic example:
 
-        ```javascript
-        document.addEventListener('DOMContentLoaded', function () {
-        	if (typeof THREE !== 'undefined') {
-        		// Example code to initialize Three.js
-        		const scene = new THREE.Scene();
-        		const renderer = new THREE.WebGLRenderer({ antialias: true });
-        		renderer.setSize(window.innerWidth, window.innerHeight);
-        		document
-        			.body
-        			.appendChild(renderer.domElement);
+          ```javascript
+          document.addEventListener('DOMContentLoaded', function () {
+          	if (typeof THREE !== 'undefined') {
+          		// Example code to initialize Three.js
+          		const scene = new THREE.Scene();
+          		const renderer = new THREE.WebGLRenderer({ antialias: true });
+          		renderer.setSize(window.innerWidth, window.innerHeight);
+          		document
+          			.body
+          			.appendChild(renderer.domElement);
 
-        		const fov = 75;
-        		const aspect = window.innerWidth/ window.innerHeight;
-        		const near = 0.1;
-        		const far = 10;
+          		const fov = 75;
+          		const aspect = window.innerWidth/ window.innerHeight;
+          		const near = 0.1;
+          		const far = 10;
 
-        		const camera = new THREE.PerspectiveCamera(
-        			fov,
-        			aspect,
-        			near,
-        			far,
-        		);
-        		camera.position.z = 2;
+          		const camera = new THREE.PerspectiveCamera(
+          			fov,
+          			aspect,
+          			near,
+          			far,
+          		);
+          		camera.position.z = 2;
 
-        		const controls = new THREE_ADDONS.OrbitControls(
-        			camera,
-        			renderer.domElement,
-        		);
-        		controls.enableDamping = true;
-        		controls.dampingFactor = 0.03;
+          		const controls = new THREE_ADDONS.OrbitControls(
+          			camera,
+          			renderer.domElement,
+          		);
+          		controls.enableDamping = true;
+          		controls.dampingFactor = 0.03;
 
-        		const geo = new THREE.IcosahedronGeometry(1.0, 5);
-        		const mat = new THREE.MeshStandardMaterial({
-        			color: 0xffffff,
-        			flatShading: true,
-        		});
-        		const hemiLight = new THREE.HemisphereLight(0x0099ff, 0xaa5500);
-        		const direcLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        		scene.add(hemiLight);
+          		const geo = new THREE.IcosahedronGeometry(1.0, 5);
+          		const mat = new THREE.MeshStandardMaterial({
+          			color: 0xffffff,
+          			flatShading: true,
+          		});
+          		const hemiLight = new THREE.HemisphereLight(0x0099ff, 0xaa5500);
+          		const direcLight = new THREE.DirectionalLight(0xffffff, 0.5);
+          		scene.add(hemiLight);
 
-        		const mesh = new THREE.Mesh(geo, mat);
-        		scene.add(mesh);
+          		const mesh = new THREE.Mesh(geo, mat);
+          		scene.add(mesh);
 
-        		const wireMat = new THREE.MeshBasicMaterial({
-        			color: 0xffffff,
-        			wireframe: true,
-        		});
+          		const wireMat = new THREE.MeshBasicMaterial({
+          			color: 0xffffff,
+          			wireframe: true,
+          		});
 
-        		const wireMesh = new THREE.Mesh(geo, wireMat);
-        		wireMesh.scale.setScalar(1.001);
-        		scene.add(wireMesh);
+          		const wireMesh = new THREE.Mesh(geo, wireMat);
+          		wireMesh.scale.setScalar(1.001);
+          		scene.add(wireMesh);
 
-        		function animate(t = 0) {
-        			requestAnimationFrame(animate);
-        			mesh.rotation.y = t * 0.0001;
-        			renderer.render(scene, camera);
-        		}
+          		function animate(t = 0) {
+          			requestAnimationFrame(animate);
+          			mesh.rotation.y = t * 0.0001;
+          			renderer.render(scene, camera);
+          		}
 
-        		animate();
+          		animate();
 
-        		window.addEventListener('resize', () => {
-        			// Update camera aspect ratio and renderer size
-        			camera.aspect = window.innerWidth/ window.innerHeight;
-        			camera.updateProjectionMatrix();
-        			renderer.setSize(window.innerWidth, window.innerHeight);
-        		});
-        	} else {
-        		console.error('Three.js could not be loaded.');
-        	}
-        });
-        ```
+          		window.addEventListener('resize', () => {
+          			// Update camera aspect ratio and renderer size
+          			camera.aspect = window.innerWidth/ window.innerHeight;
+          			camera.updateProjectionMatrix();
+          			renderer.setSize(window.innerWidth, window.innerHeight);
+          		});
+          	} else {
+          		console.error('Three.js could not be loaded.');
+          	}
+          });
+          ```
 
-        NOTE: Use `THREE_ADDONS` to access the addons.
+    NOTE: Use `THREE_ADDONS` to access the addons.
 
 ### Tips
 
