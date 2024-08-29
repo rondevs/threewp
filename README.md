@@ -1,7 +1,3 @@
-Here's the revised README for the ThreeWP plugin, reflecting the integration of Three.js and its addons via a custom bundle file instead of a CDN:
-
----
-
 # ThreeWP
 
 **ThreeWP** is a WordPress plugin that integrates the Three.js library and its addons into your WordPress site using a custom bundle file. This setup allows you to create and manage custom 3D models, animations, and interactive graphics directly within your WordPress theme or custom JavaScript code.
