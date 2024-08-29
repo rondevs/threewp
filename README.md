@@ -1,18 +1,22 @@
+Here's the revised README for the ThreeWP plugin, reflecting the integration of Three.js and its addons via a custom bundle file instead of a CDN:
+
+---
+
 # ThreeWP
 
-**ThreeWP** is a WordPress plugin designed to integrate the Three.js library with Three.js Addons into your WordPress site. This plugin allows you to use Three.js for creating custom 3D models, animations, and interactive graphics directly in your WordPress theme or custom JavaScript code.
+**ThreeWP** is a WordPress plugin that integrates the Three.js library and its addons into your WordPress site using a custom bundle file. This setup allows you to create and manage custom 3D models, animations, and interactive graphics directly within your WordPress theme or custom JavaScript code.
 
 ## Features
 
--   **Integrates Three.js**: Enqueues the Three.js library from a CDN, making it available for your custom scripts.
--   **Easy Setup**: Simple installation and activation process.
--   **Custom Integration**: Provides no built-in shortcodes or settings; users add their own Three.js code.
+-   **Custom Bundle Integration**: Enqueues the Three.js library and essential addons using a custom bundle file, avoiding reliance on a CDN.
+-   **Easy Setup**: Straightforward installation and activation process.
+-   **Custom Integration**: No built-in shortcodes or settings; users add their own Three.js code for full customization.
 
 ## Installation
 
 1. **Download the Plugin**:
 
-    - You can download the plugin zip file from [GitHub Releases](https://github.com/rondevs/threewp/releases).
+    - Download the plugin zip file from [GitHub Releases](https://github.com/rondevs/threewp/releases).
 
 2. **Upload the Plugin**:
 
@@ -28,7 +32,7 @@
 
 ## Usage
 
-After activating the plugin, Three.js will be available for use in your theme or custom JavaScript files. You need to manually add your Three.js code to create and manage 3D content.
+After activating the plugin, Three.js and its addons will be available for use in your theme or custom JavaScript files. You need to manually add your Three.js code to create and manage 3D content.
 
 ### Example Usage
 
@@ -38,59 +42,74 @@ After activating the plugin, Three.js will be available for use in your theme or
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
-	if (typeof THREE !== 'undefined') {
-		// Example code to initialize Three.js
+	if (typeof ThreeBundle !== 'undefined') {
+		// Destructure THREE and THREE_ADDONS from ThreeBundle
+		const { THREE, THREE_ADDONS } = ThreeBundle;
+		// Create a scene
 		const scene = new THREE.Scene();
-		const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+		// Setup a camera
+		const camera = new THREE.PerspectiveCamera(
+			75,
+			window.innerWidth / window.innerHeight,
+			0.1,
+			1000,
+		);
+
+		// Setup a renderer
+		const renderer = new THREE.WebGLRenderer();
+		// Give the renderer a width and height
 		renderer.setSize(window.innerWidth, window.innerHeight);
+
+		// append the renderer into the html body
 		document.body.appendChild(renderer.domElement);
 
-		const fov = 75;
-		const aspect = window.innerWidth / window.innerHeight;
-		const near = 0.1;
-		const far = 10;
-
-		const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+		// Set camera position
 		camera.position.z = 2;
 
+		// texture
+		// Load a texture
+		const textureLoader = new THREE.TextureLoader();
+		const texture = textureLoader.load(
+			'https://threejsfundamentals.org/threejs/resources/images/wall.jpg',
+		); // Replace with your image URL
+
+		// geometry
+		const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+		// material
+		const material = new THREE.MeshStandardMaterial({ map: texture });
+
+		// combine into mesh
+		const sphere = new THREE.Mesh(geometry, material);
+
+		scene.add(sphere);
+
+		const light = new THREE.AmbientLight(0xffffff);
+		scene.add(light);
+
+		// Set up OrbitControls
 		const controls = new THREE_ADDONS.OrbitControls(
 			camera,
 			renderer.domElement,
 		);
-		controls.enableDamping = true;
+
+		// Optional: Adjust controls settings (e.g., damping, auto-rotation)
+		controls.enableDamping = true; // Adds smoothness when dragging
 		controls.dampingFactor = 0.03;
-
-		const geo = new THREE.IcosahedronGeometry(1.0, 5);
-		const mat = new THREE.MeshStandardMaterial({
-			color: 0xffffff,
-			flatShading: true,
-		});
-		const hemiLight = new THREE.HemisphereLight(0x0099ff, 0xaa5500);
-		const direcLight = new THREE.DirectionalLight(0xffffff, 0.5);
-		scene.add(hemiLight);
-
-		const mesh = new THREE.Mesh(geo, mat);
-		scene.add(mesh);
-
-		const wireMat = new THREE.MeshBasicMaterial({
-			color: 0xffffff,
-			wireframe: true,
-		});
-
-		const wireMesh = new THREE.Mesh(geo, wireMat);
-		wireMesh.scale.setScalar(1.001);
-		scene.add(wireMesh);
+		controls.autoRotate = true;
+		controls.autoRotateSpeed = 2;
 
 		function animate(t = 0) {
 			requestAnimationFrame(animate);
-			mesh.rotation.y = t * 0.0001;
+			controls.update();
 			renderer.render(scene, camera);
 		}
 
 		animate();
 
+		// responsive
 		window.addEventListener('resize', () => {
-			// Update camera aspect ratio and renderer size
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
 			renderer.setSize(window.innerWidth, window.innerHeight);
@@ -101,16 +120,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 ```
 
-NOTE: Use `THREE_ADDONS` to access the addons.
+NOTE: Destruncture `THREE` and `THREE_ADDONS` to access Three.js and the Addons.
 
 ### Tips
 
--   **Responsive Design**: Adjust the size of the Three.js container or renderer based on your design requirements. You may need to handle window resizing events to keep the 3D content responsive.
+-   **Responsive Design**: Adjust the size of the Three.js container or renderer according to your design requirements. Handle window resizing events to keep the 3D content responsive.
 -   **Documentation**: Refer to the [Three.js documentation](https://threejs.org/docs/) for detailed information on creating more complex scenes, objects, and animations.
 
 ## Changelog
 
--   **v1.1.0** - Upgraded release. Now enqueues the Three.js library (r128) along with essential addons like OrbitControls, GLTFLoader, EffectComposer, and BloomPass. This version enhances the plugin's capabilities, providing a more comprehensive setup for integrating Three.js with WordPress.
+-   **v2.0.0** - Introduced custom bundle file integration for Three.js and essential addons like OrbitControls, GLTFLoader, EffectComposer, and BloomPass etc. This version enhances the plugin's capabilities and provides a more comprehensive setup for integrating Three.js with WordPress.
 
 ## Contributing
 
@@ -122,6 +141,6 @@ This plugin is licensed under the GPLv2 or later. See the [LICENSE](LICENSE) fil
 
 ## Support
 
-If you encounter any issues or need assistance, please reach out via [GitHub Issues](https://github.com/rondevs/threewp/issues)
+If you encounter any issues or need assistance, please reach out via [GitHub Issues](https://github.com/rondevs/threewp/issues).
 
 Thank you for using ThreeWP! We hope it enhances your WordPress site with exciting 3D content.
