@@ -10,8 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily integrate Three.js with WordPress to create and display 3D models and animations.
 
-
-Description:
+== Description ==
 ThreeWP is a WordPress plugin that integrates the Three.js library and its addons into your WordPress site using a custom bundle file. This setup allows you to create and manage custom 3D models, animations, and interactive graphics directly within your WordPress theme or custom JavaScript code.
 
 == Features ==
