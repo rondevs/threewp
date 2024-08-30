@@ -11,7 +11,7 @@
 
 ## Short Description
 
-Integrate Three.js into your WordPress site to create and display custom 3D models and animations effortlessly.
+Integrate Three.js with WordPress to effortlessly create and display custom 3D models and animations.
 
 ## Description
 

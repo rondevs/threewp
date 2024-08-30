@@ -15,6 +15,12 @@ Text Domain: threewp
 
 defined('ABSPATH') or die('Off Limit Area!!');
 
+add_action('plugins_loaded', 'threewp_load_textdomain');
+
+function threewp_load_textdomain() {
+    load_plugin_textdomain('threewp', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+
 function three_js_integration_enqueue_scripts() {
     wp_register_script(
         'three-bundle-js',
