@@ -1,6 +1,21 @@
 # ThreeWP
 
-**ThreeWP** is a WordPress plugin that integrates the Three.js library and its addons into your WordPress site using a custom bundle file. This setup allows you to create and manage custom 3D models, animations, and interactive graphics directly within your WordPress theme or custom JavaScript code.
+**Contributors:** rondevs  
+**Tags:** three.js, 3D, visualization  
+**Requires at least:** 6.0  
+**Tested up to:** 6.6.1  
+**Requires PHP:** 8.3.8  
+**Stable tag:** 2.0.1  
+**License:** GPLv2 or later  
+**License URI:** [GPLv2 License](http://www.gnu.org/licenses/gpl-2.0.html)
+
+## Short Description
+
+Integrate Three.js into your WordPress site to create and display custom 3D models and animations effortlessly.
+
+## Description
+
+ThreeWP is a WordPress plugin that integrates the Three.js library and its addons into your WordPress site using a custom bundle file. This setup allows you to create and manage custom 3D models, animations, and interactive graphics directly within your WordPress theme or custom JavaScript code.
 
 ## Features
 
@@ -125,7 +140,19 @@ NOTE: Destruncture `THREE` and `THREE_ADDONS` to access Three.js and the Addons.
 
 ## Changelog
 
+-   **v2.0.1** - Added `defer` attribute to the Three.js script for improved performance and load times.Updated plugin code for better compatibility with modern browsers.
+
 -   **v2.0.0** - Introduced custom bundle file integration for Three.js and essential addons like OrbitControls, GLTFLoader, EffectComposer, and BloomPass etc. This version enhances the plugin's capabilities and provides a more comprehensive setup for integrating Three.js with WordPress.
+
+-   **v1.1.0** - Added Three.js Addons Support with CDN.
+
+-   **v1.0.0** - Initial release of the Three.js CDN Integration plugin.
+
+## Frequently Asked Questions
+
+### How do I use Three.js with this plugin?
+
+After activating the plugin, you can include Three.js code in your theme, HTML element, or custom plugin to create and manage 3D models.
 
 ## Contributing
 
