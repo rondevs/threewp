@@ -9,7 +9,7 @@
 **License:** GPLv2 or later  
 **License URI:** [GPLv2 License](http://www.gnu.org/licenses/gpl-2.0.html)
 
-Integrate Three.js with WordPress to effortlessly create and display custom 3D models and animations.
+Easily integrate Three.js with WordPress to create and display 3D models and animations.
 
 ## Description
 
