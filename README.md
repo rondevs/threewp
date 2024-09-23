@@ -5,7 +5,7 @@
 **Requires at least:** 6.0  
 **Tested up to:** 6.6.1  
 **Requires PHP:** 8.3.8  
-**Stable tag:** 2.0.1  
+**Stable tag:** 2.0.2  
 **License:** GPLv2 or later  
 **License URI:** [GPLv2 License](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -51,9 +51,9 @@ After activating the plugin, Three.js and its addons will be available for use i
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
-	if (typeof ThreeBundle !== 'undefined') {
-		// Destructure THREE and THREE_ADDONS from ThreeBundle
-		const { THREE, THREE_ADDONS } = ThreeBundle;
+	if (typeof ThreeWP !== 'undefined') {
+		// Destructure THREE and THREE_ADDONS from ThreeWP
+		const { THREE, OrbitControls } = ThreeWP;
 		// Create a scene
 		const scene = new THREE.Scene();
 
@@ -70,38 +70,33 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Give the renderer a width and height
 		renderer.setSize(window.innerWidth, window.innerHeight);
 
-		// append the renderer into the html body
+		// Append the renderer into the html body
 		document.body.appendChild(renderer.domElement);
 
 		// Set camera position
 		camera.position.z = 2;
 
-		// texture
 		// Load a texture
 		const textureLoader = new THREE.TextureLoader();
 		const texture = textureLoader.load(
 			'https://threejsfundamentals.org/threejs/resources/images/wall.jpg',
 		); // Replace with your image URL
 
-		// geometry
+		// Create geometry
 		const geometry = new THREE.BoxGeometry(1, 1, 1);
 
-		// material
+		// Create material
 		const material = new THREE.MeshStandardMaterial({ map: texture });
 
-		// combine into mesh
+		// Combine into mesh
 		const sphere = new THREE.Mesh(geometry, material);
-
 		scene.add(sphere);
 
 		const light = new THREE.AmbientLight(0xffffff);
 		scene.add(light);
 
 		// Set up OrbitControls
-		const controls = new THREE_ADDONS.OrbitControls(
-			camera,
-			renderer.domElement,
-		);
+		const controls = new OrbitControls(camera, renderer.domElement);
 
 		// Optional: Adjust controls settings (e.g., damping, auto-rotation)
 		controls.enableDamping = true; // Adds smoothness when dragging
@@ -117,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		animate();
 
-		// responsive
+		// Responsive
 		window.addEventListener('resize', () => {
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
@@ -129,14 +124,88 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 ```
 
-NOTE: Destruncture `THREE` and `THREE_ADDONS` to access Three.js and the Addons.
+NOTE: Destruncture `THREE` and the `addons` to access from ThreeWP bundle.
+
+Most Importantly insert the shortcode anywhere in the page in the content editor or a shortcode section:
+
+```plaintext
+[use_threewp]
+```
+
+Once added, Three.js will be enabled for that specific page, allowing you to include your custom 3D models and animations.
+
+Hide the shortcode element to hide the shortcode container
 
 ### Tips
 
 -   **Responsive Design**: Adjust the size of the Three.js container or renderer according to your design requirements. Handle window resizing events to keep the 3D content responsive.
 -   **Documentation**: Refer to the [Three.js documentation](https://threejs.org/docs/) for detailed information on creating more complex scenes, objects, and animations.
 
+## Available Tools in This Plugin
+
+-   **THREE**
+-   **Addons:**
+    -   ArcballControls
+    -   BufferGeometryUtils
+    -   CameraUtils
+    -   CCDIKSolver
+    -   ConvexGeometry
+    -   ConvexH
+    -   CSS2DRenderer
+    -   CSS3DRenderer
+    -   DecalGeometry
+    -   DRACOLoader
+    -   DragControls
+    -   EdgeSplitModifier
+    -   EffectComposer
+    -   FirstPersonControls
+    -   FlyControls
+    -   FontLoader
+    -   GLTFLoader
+    -   KTX2Loader
+    -   LDrawLoader
+    -   Lensflare
+    -   LensflareElement
+    -   LightProbeGenerator
+    -   LightProbeHelper
+    -   Lut
+    -   LUT3dlLoader
+    -   LUTCubeLoader
+    -   MapControls
+    -   MeshSurfaceSampler
+    -   MMDAnimationHelper
+    -   MMDLoader
+    -   MMDPhysics
+    -   MTLLoader
+    -   OBB
+    -   OBJLoader
+    -   OrbitControls
+    -   ParametricGeometry
+    -   PCDLoader
+    -   PDBLoader
+    -   PointerLockControls
+    -   PositionalAudioHelper
+    -   RectAreaLightHelper
+    -   Rhino3dmLoader
+    -   SceneUtils
+    -   SDFGeometryGenerator
+    -   SkeletonUtils
+    -   Sky
+    -   SVGLoader
+    -   SVGRenderer
+    -   TeapotGeometry
+    -   TextGeometry
+    -   TGALoader
+    -   Timer
+    -   TrackballControls
+    -   TransformControls
+    -   VertexNormalsHelper
+    -   VertexTangentsHelper
+    -   XREstimatedLight
+
 ## Changelog
+
+-   **v2.0.2** -Updated custom bundle file. Removed external dependencies from the bundle. Introduced shortcode `[use_threewp]` to load the Three.js bundle script only on pages that contain the shortcode.
 
 -   **v2.0.1** - Added `defer` attribute to the Three.js script for improved performance and load times.Updated plugin code for better compatibility with modern browsers.
 
