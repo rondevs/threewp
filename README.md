@@ -23,25 +23,25 @@ ThreeWP is a WordPress plugin that integrates the Three.js library and its addon
 
 ## Installation
 
-1. **Download the Plugin**:
+### From WordPress Dashboard:
 
-    - Download the plugin zip file from [GitHub Releases](https://github.com/rondevs/threewp/releases).
+1. Go to your WordPress dashboard.
+2. Navigate to **Plugins** > **Add New**.
+3. In the search bar, type **ThreeWP**.
+4. Locate the **ThreeWP** plugin and click **Install Now**.
+5. After installation, click **Activate**.
 
-2. **Upload the Plugin**:
+### Manual Installation:
 
-    - Log in to your WordPress admin panel.
-    - Navigate to **Plugins > Add New**.
-    - Click **Upload Plugin** and select the downloaded zip file.
-    - Click **Install Now** and then **Activate** the plugin.
-
-3. **Manual Installation**:
-    - Alternatively, you can clone the repository or download it as a ZIP file.
-    - Upload the `threewp` folder to the `wp-content/plugins/` directory of your WordPress installation.
-    - Activate the plugin through the **Plugins** menu in WordPress.
+1. Download the plugin zip file from the [WordPress.org plugin repository](https://wordpress.org/plugins/threewp).
+2. Go to your WordPress dashboard.
+3. Navigate to **Plugins** > **Add New**.
+4. Click on **Upload Plugin** and select the downloaded zip file.
+5. Click **Install Now** and then **Activate** the plugin.
 
 ## Usage
 
-After activating the plugin, Three.js and its addons will be available for use in your theme or custom JavaScript files. You need to manually add your Three.js code to create and manage 3D content.
+After activating the plugin, Use the `[use_threewp]` shortcode to enable Three.js for specific pages. Three.js and its addons will be available for use in your theme or custom JavaScript files. You need to manually add your Three.js code to create and manage 3D content.
 
 ### Example Usage
 
@@ -125,12 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
 ```
 
 NOTE: Destruncture `THREE` and the `addons` to access from ThreeWP bundle.
-
-Most Importantly insert the shortcode anywhere in the page in the content editor or a shortcode section:
-
-```plaintext
-[use_threewp]
-```
 
 Once added, Three.js will be enabled for that specific page, allowing you to include your custom 3D models and animations.
 
