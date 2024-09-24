@@ -1,7 +1,7 @@
 # ThreeWP
 
 **Contributors:** rondevs  
-**Tags:** three.js, 3D, visualization  
+**Tags:** Three.js, 3D graphics, WordPress 3D, WebGL, visualization
 **Requires at least:** 6.0  
 **Tested up to:** 6.6.1  
 **Requires PHP:** 8.3.8  
